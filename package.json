@@ -1,0 +1,58 @@
+{
+  "name": "personal-finance",
+  "version": "0.0.1",
+  "description": "Your Personal Finance management tool",
+  "keywords": [
+    "personal finance",
+    "budgeting",
+    "expense tracking",
+    "income tracking"
+  ],
+  "license": "ISC",
+  "author": "Prabhu",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check-types": "tsc --noEmit",
+    "dev": "vite dev",
+    "format": "prettier --write . --ignore-unknown",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --max-warnings 0 --fix"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/react-router": "^1.121.12",
+    "@tanstack/react-start": "^1.121.13",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.10",
+    "vite": "^6.3.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.29.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-package-json": "^0.39.2",
+    "eslint-plugin-perfectionist": "^4.14.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-dom": "^1.52.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-react-x": "^1.52.2",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-packagejson": "^2.5.15",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "engines": {
+    "node": ">=23"
+  },
+  "title": "Personal Finance"
+}

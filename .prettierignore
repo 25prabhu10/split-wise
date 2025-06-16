@@ -1,0 +1,8 @@
+dist
+build
+coverage
+node_modules
+
+# package manager files
+package-lock.json
+pnpm-lock.yaml
