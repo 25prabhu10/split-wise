@@ -1,6 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": ["**/*.ts", "**/*.tsx", "*.js"],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "vite.config.ts",
+    "eslint.config.js",
+    "drizzle.config.ts"
+  ],
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,

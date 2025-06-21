@@ -50,6 +50,13 @@ export default tseslint.config(
       ...eslintPluginUnicorn.configs.recommended.rules,
       ...perfectionist.configs['recommended-natural'].rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'unicorn/filename-case': [
+        'error',
+        {
+          case: 'kebabCase',
+          ignore: ['README.md']
+        }
+      ],
       'unicorn/no-null': 'off',
       'unicorn/prefer-query-selector': 'off',
       'unicorn/prefer-top-level-await': 'off',

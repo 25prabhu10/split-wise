@@ -2,7 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 
 const getCount = createServerFn({
-  method: 'GET'
+  method: 'GET',
+  type: 'static'
 }).handler(() => {
   return new Date()
 })
@@ -18,7 +19,7 @@ function Home() {
   return (
     <>
       <h1 className="text-3xl font-bold underline"> Hello world! </h1>
-      <button type="button">Add 1 to {state.toDateString()}?</button>
+      <button type="button">Add to {state.toLocaleTimeString()}?</button>
     </>
   )
 }
