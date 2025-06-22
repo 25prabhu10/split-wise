@@ -1,5 +1,5 @@
 {
-  "id": "726e303a-bc24-4e01-b22d-ee8d07c103ca",
+  "id": "74a386ed-458d-46d2-9d05-317dc5d9c635",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -46,7 +46,7 @@
         },
         "password": {
           "name": "password",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         },
@@ -192,9 +192,15 @@
           "primaryKey": false,
           "notNull": true
         },
+        "display_username": {
+          "name": "display_username",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "email": {
           "name": "email",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
@@ -218,7 +224,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
@@ -227,6 +233,12 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -237,6 +249,11 @@
           "name": "user_email_unique",
           "nullsNotDistinct": false,
           "columns": ["email"]
+        },
+        "user_username_unique": {
+          "name": "user_username_unique",
+          "nullsNotDistinct": false,
+          "columns": ["username"]
         }
       },
       "policies": {},

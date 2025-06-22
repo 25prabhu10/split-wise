@@ -5,7 +5,7 @@ CREATE TABLE "account" (
 	"created_at" timestamp NOT NULL,
 	"id" text PRIMARY KEY NOT NULL,
 	"id_token" text,
-	"password" text,
+	"password" varchar(256),
 	"provider_id" text NOT NULL,
 	"refresh_token" text,
 	"refresh_token_expires_at" timestamp,
@@ -28,13 +28,16 @@ CREATE TABLE "session" (
 --> statement-breakpoint
 CREATE TABLE "user" (
 	"created_at" timestamp NOT NULL,
-	"email" text NOT NULL,
+	"display_username" varchar(256),
+	"email" varchar(256) NOT NULL,
 	"email_verified" boolean NOT NULL,
 	"id" text PRIMARY KEY NOT NULL,
 	"image" text,
-	"name" text NOT NULL,
+	"name" varchar(256) NOT NULL,
 	"updated_at" timestamp NOT NULL,
-	CONSTRAINT "user_email_unique" UNIQUE("email")
+	"username" varchar(256),
+	CONSTRAINT "user_email_unique" UNIQUE("email"),
+	CONSTRAINT "user_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint
 CREATE TABLE "verification" (

@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { LogOut, User } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
 
@@ -12,7 +13,17 @@ interface NavbarProps {
 export function Navbar({ isAuthenticated, onSignOut, userName }: NavbarProps) {
   function handleSignOut() {
     onSignOut().catch((error: unknown) => {
-      console.error('Failed to sign out:', error)
+      toast.error('Failed to sign out user', {
+        action: {
+          label: 'Retry',
+          onClick: () => {
+            handleSignOut()
+          }
+        },
+        description: error instanceof Error ? error.message : 'An unknown error occurred',
+        duration: 3000,
+        position: 'top-right'
+      })
     })
   }
 
@@ -28,7 +39,7 @@ export function Navbar({ isAuthenticated, onSignOut, userName }: NavbarProps) {
           <>
             <Link
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              to="/">
+              to="/dashboard">
               Dashboard
             </Link>
             <Link

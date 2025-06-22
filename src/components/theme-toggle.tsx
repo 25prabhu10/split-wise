@@ -63,5 +63,5 @@ function setTheme(theme: Theme) {
     document.documentElement.classList.add(theme)
   }
 
-  LocalStorage.set<Theme>('theme', theme)
+  LocalStorage.set('theme', theme)
 }

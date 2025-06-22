@@ -1,6 +1,7 @@
 import { serverOnly } from '@tanstack/react-start'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { username } from 'better-auth/plugins'
 import { reactStartCookies } from 'better-auth/react-start'
 
 import db from '@/db'
@@ -30,7 +31,7 @@ const getAuthConfig = serverOnly(() =>
     //     clientSecret: process.env.GITHUB_CLIENT_SECRET!
     //   }
     // }
-    plugins: [reactStartCookies()]
+    plugins: [username(), reactStartCookies()]
   })
 )
 

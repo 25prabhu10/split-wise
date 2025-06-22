@@ -11,6 +11,7 @@ export function Header({ children }: HeaderProps) {
         <div className="flex items-center space-x-4">
           <h1 className="text-xl font-bold text-foreground">Split Wise</h1>
         </div>
+
         <div className="flex-1">{children}</div>
 
         <div className="ml-2">

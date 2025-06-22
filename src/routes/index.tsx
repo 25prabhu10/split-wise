@@ -17,7 +17,7 @@ function Home() {
 
   async function handleSignOut() {
     await authClient.signOut()
-    await queryClient.invalidateQueries({ queryKey: ['user'] })
+    await queryClient.invalidateQueries()
     await router.invalidate()
   }
 

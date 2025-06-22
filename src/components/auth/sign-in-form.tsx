@@ -1,10 +1,23 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { AccountLogin, accountLoginSchema } from '@/db/schemas'
 import { useAppForm } from '@/hooks/use-form'
 import { authClient } from '@/lib/auth-client'
-import { SignInSchema } from '@/lib/auth.schema'
+
+const signIn = async (data: AccountLogin) => {
+  const { data: response, error } = await authClient.signIn.username({
+    ...data
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return response
+}
 
 export function SignInForm() {
   const navigate = useNavigate()
@@ -13,37 +26,23 @@ export function SignInForm() {
   const signInMutation = useMutation({
     mutationFn: signIn,
     onSuccess: async (response) => {
-      console.log(`Hey ${response.user.name}, welcome back!`)
+      toast.success(`Hey ${response.user.name}, welcome back!`)
 
       await queryClient.resetQueries()
-      await navigate({ to: '/' })
+      await navigate({ to: '/dashboard' })
     }
   })
 
   const form = useAppForm({
     defaultValues: {
-      email: '',
-      password: ''
-    } as SignInSchema,
+      password: '12345678@Abc',
+      username: 'john_doe'
+    } as AccountLogin,
     onSubmit: async ({ value }) => {
-      const response = await signInMutation.mutateAsync(value)
-      console.log(`Hey ${response.user.name}, welcome back!`)
-      // , {
-      //   onError: (error) => {
-      //     console.error("Sign in error:", error);
-      //     return {
-      //       form: 'Invalid email or password. Please try again.',
-      //       fields: {
-      //         email: error.error.message
-      //       }
-      //     }
-      //   },
-      //   onSuccess: async () => {
-      //     await queryClient.invalidateQueries({ queryKey: ["user"] });
-      //     navigate({ to: "/" });
-      //   },
-      // }
-      // )
+      await signInMutation.mutateAsync(value)
+    },
+    validators: {
+      onChange: accountLoginSchema
     }
   })
 
@@ -65,67 +64,19 @@ export function SignInForm() {
               console.error('Error during form submission:', error)
             })
           }}>
-          {/* <Label htmlFor="email">Email</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                className="pl-9"
-                disabled={isLoading}
-                id="email"
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                }}
-                placeholder="Enter your email"
-                required
-                type="email"
-                value={email}
-              />
-            </div> */}
           <form.AppField
             children={(field) => (
               <field.TextField
-                autoComplete="email"
-                label="Email"
-                placeholder="john@doe.com"
+                autoComplete="username"
+                label="Username"
+                placeholder="johndoe"
                 required
-                title="Enter your email address"
-                type="email"
+                title="Enter your username"
+                type="text"
               />
             )}
-            name="email"
+            name="username"
           />
-
-          {/* <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                className="pl-9 pr-9"
-                disabled={isLoading}
-                id="password"
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                }}
-                placeholder="Enter your password"
-                required
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-              />
-              <Button
-                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                disabled={isLoading}
-                onClick={() => {
-                  setShowPassword(!showPassword)
-                }}
-                size="sm"
-                type="button"
-                variant="ghost">
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4 text-muted-foreground" />
-                ) : (
-                  <Eye className="h-4 w-4 text-muted-foreground" />
-                )}
-              </Button>
-            </div> */}
           <form.AppField
             children={(field) => (
               <field.PasswordField
@@ -145,17 +96,4 @@ export function SignInForm() {
       </CardContent>
     </Card>
   )
-}
-
-async function signIn(data: SignInSchema) {
-  const { data: response, error } = await authClient.signIn.email({
-    email: data.email,
-    password: data.password
-  })
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  return response
 }

@@ -51,6 +51,25 @@ export default tseslint.config(
       ...reactDom.configs.recommended.rules,
       ...eslintPluginUnicorn.configs.recommended.rules,
       ...perfectionist.configs['recommended-natural'].rules,
+      '@typescript-eslint/only-throw-error': 'off',
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowBoolean: true,
+          allowNullish: true,
+          allowNumber: true
+        }
+      ],
+      'logical-assignment-operators': ['error', 'always', { enforceForIfStatements: true }],
+      'no-useless-rename': 'error',
+      'object-shorthand': 'error',
+      'operator-assignment': 'error',
+      'perfectionist/sort-imports': [
+        'error',
+        {
+          tsconfigRootDir: '.'
+        }
+      ],
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'unicorn/filename-case': [
         'error',
@@ -65,6 +84,7 @@ export default tseslint.config(
       'unicorn/prevent-abbreviations': 'off'
     },
     settings: {
+      perfectionist: { partitionByComment: true, type: 'natural' },
       react: {
         version: 'detect'
       }

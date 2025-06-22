@@ -20,7 +20,7 @@ export default function FieldInfo({ fieldName, meta }: FieldInfoProps) {
             </p>
           ))
         : null}
-      {/* {field.state.meta.isValidating ? 'Validating...' : null} */}
+      {meta.isValidating ? 'Validating...' : null}
     </>
   )
 }

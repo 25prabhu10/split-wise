@@ -13,7 +13,9 @@ import {
 
 import { DefaultCatchBoundary } from '@/components/default-error-boundary'
 import { NotFound } from '@/components/not-found'
+import { Toaster } from '@/components/ui/sonner'
 import { seo } from '@/lib/seo'
+import { authQueries } from '@/services/auth.queries'
 import { getUser } from '@/services/auth.service'
 import appCss from '@/styles/app.css?url'
 
@@ -22,10 +24,8 @@ export const Route = createRootRouteWithContext<{
   user: Awaited<ReturnType<typeof getUser>>
 }>()({
   beforeLoad: async ({ context }) => {
-    const user = await context.queryClient.fetchQuery({
-      queryFn: ({ signal }) => getUser({ signal }),
-      queryKey: ['user']
-    }) // we're using react-query for caching, see router.tsx
+    const user = await context.queryClient.fetchQuery(authQueries.getUser())
+    // we're using react-query for caching, see router.tsx
     return { user }
   },
   component: RootComponent,
@@ -87,6 +87,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 
         {children}
 
+        <Toaster />
         <Scripts />
       </body>
     </html>

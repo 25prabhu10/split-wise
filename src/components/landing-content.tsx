@@ -29,7 +29,7 @@ export function LandingContent({ isAuthenticated, userName }: LandingContentProp
             {isAuthenticated ? (
               <>
                 <Button asChild size="lg">
-                  <Link className="flex items-center space-x-2" to="/">
+                  <Link className="flex items-center space-x-2" to="/dashboard">
                     <span>Dashboard</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>

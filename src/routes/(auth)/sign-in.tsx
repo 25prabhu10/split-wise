@@ -1,14 +1,15 @@
-import { createFileRoute, Link, redirect } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { z } from 'zod'
 
 import { SignInForm } from '@/components/auth/sign-in-form'
 
+const signInSerachSchema = z.object({
+  callback: z.string().catch('/')
+})
+
 export const Route = createFileRoute('/(auth)/sign-in')({
-  beforeLoad: ({ context }) => {
-    if (context.user) {
-      redirect({ throw: true, to: '/' })
-    }
-  },
-  component: RouteComponent
+  component: RouteComponent,
+  validateSearch: signInSerachSchema
 })
 
 function RouteComponent() {
