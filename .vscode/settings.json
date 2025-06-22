@@ -9,5 +9,8 @@
     "**/routeTree.gen.ts": true
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "editor.formatOnSave": false
+  "editor.formatOnSave": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

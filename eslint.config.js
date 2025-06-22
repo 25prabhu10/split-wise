@@ -1,6 +1,7 @@
 // @ts-check
 
 import js from '@eslint/js'
+import pluginQuery from '@tanstack/eslint-plugin-query'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import packageJson from 'eslint-plugin-package-json'
 import perfectionist from 'eslint-plugin-perfectionist'
@@ -13,10 +14,11 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', './src/routeTree.gen.ts'] },
+  { ignores: ['dist', './src/routeTree.gen.ts', '.nitro', '.output', '.tanstack'] },
   { linterOptions: { reportUnusedDisableDirectives: 'error' } },
   js.configs.recommended,
   jsxA11y.flatConfigs.recommended,
+  ...pluginQuery.configs['flat/recommended'],
   {
     extends: [packageJson.configs.recommended],
     files: ['**/package.json']

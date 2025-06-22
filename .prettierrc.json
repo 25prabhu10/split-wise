@@ -8,5 +8,7 @@
   "singleQuote": true,
   "trailingComma": "none",
   "bracketSameLine": true,
-  "plugins": ["prettier-plugin-packagejson"]
+  "tailwindStylesheet": "./src/styles/app.css",
+  "tailwindFunctions": ["clsx"],
+  "plugins": ["prettier-plugin-packagejson", "prettier-plugin-tailwindcss"]
 }

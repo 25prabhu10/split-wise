@@ -1,25 +1,35 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
+import { useQueryClient } from '@tanstack/react-query'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 
-const getCount = createServerFn({
-  method: 'GET',
-  type: 'static'
-}).handler(() => {
-  return new Date()
-})
+import { Header } from '@/components/header'
+import { LandingContent } from '@/components/landing-content'
+import { Navbar } from '@/components/navbar'
+import { authClient } from '@/lib/auth-client'
 
 export const Route = createFileRoute('/')({
-  component: Home,
-  loader: async () => await getCount()
+  component: Home
 })
 
 function Home() {
-  const state = Route.useLoaderData()
+  const { user } = Route.useRouteContext()
+  const router = useRouter()
+  const queryClient = useQueryClient()
+
+  async function handleSignOut() {
+    await authClient.signOut()
+    await queryClient.invalidateQueries({ queryKey: ['user'] })
+    await router.invalidate()
+  }
+
+  const isAuthenticated = !!user
+  const userName = user?.name
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline"> Hello world! </h1>
-      <button type="button">Add to {state.toLocaleTimeString()}?</button>
-    </>
+    <div className="min-h-svh bg-background text-foreground">
+      <Header>
+        <Navbar isAuthenticated={isAuthenticated} onSignOut={handleSignOut} userName={userName} />
+      </Header>
+      <LandingContent isAuthenticated={isAuthenticated} userName={userName} />
+    </div>
   )
 }

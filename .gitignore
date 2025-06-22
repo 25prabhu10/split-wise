@@ -9,6 +9,8 @@ yarn.lock
 .cache
 .vercel
 .output
+.tanstack
+.nitro
 /build/
 /api/
 /server/build

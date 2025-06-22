@@ -4,7 +4,7 @@ import * as schema from './schemas'
 
 const db = drizzle({
   connection: {
-    connectionString: import.meta.env.DATABASE_URL as string
+    connectionString: process.env.DATABASE_URL ?? ''
   },
   logger: true,
   schema

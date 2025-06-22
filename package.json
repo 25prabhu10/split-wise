@@ -4,6 +4,8 @@
   "description": "Split expenses among friends and family with ease.",
   "keywords": [
     "splitwise",
+    "friends",
+    "family",
     "expenses"
   ],
   "license": "MIT",
@@ -14,10 +16,12 @@
     "check-types": "tsc --noEmit",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
     "dev": "vite dev",
     "format": "prettier --write . --ignore-unknown",
     "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix"
+    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "start": "node .output/server/index.mjs"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -27,24 +31,37 @@
     "*.{js,jsx,ts,tsx}": "eslint . --max-warnings 0 --no-warn-ignored"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/react-form": "^1.12.3",
+    "@tanstack/react-query": "^5.81.0",
     "@tanstack/react-router": "^1.121.27",
+    "@tanstack/react-router-with-query": "^1.121.27",
     "@tanstack/react-start": "^1.121.32",
     "better-auth": "^1.2.10",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.2",
+    "lucide-react": "^0.522.0",
     "pg": "^8.16.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.10",
     "vite": "^6.3.5",
     "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@tanstack/eslint-plugin-query": "^5.81.0",
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
+    "@types/node": "^24.0.3",
     "@types/pg": "^8.15.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.29.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -52,7 +69,7 @@
     "eslint-plugin-perfectionist": "^4.15.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-dom": "^1.52.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "6.0.0-rc1",
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-react-x": "^1.52.2",
     "eslint-plugin-unicorn": "^59.0.1",
@@ -60,7 +77,9 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.5.3",
     "prettier-plugin-packagejson": "^2.5.15",
+    "prettier-plugin-tailwindcss": "^0.6.13",
     "simple-git-hooks": "^2.13.0",
+    "tw-animate-css": "^1.3.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite-tsconfig-paths": "^5.1.4"
