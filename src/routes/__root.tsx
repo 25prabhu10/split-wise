@@ -12,6 +12,8 @@ import {
 } from '@tanstack/react-router'
 
 import { DefaultCatchBoundary } from '@/components/default-error-boundary'
+import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
 import { NotFound } from '@/components/not-found'
 import { Toaster } from '@/components/ui/sonner'
 import { seo } from '@/lib/seo'
@@ -84,6 +86,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
             localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
             )`}
         </ScriptOnce>
+
+        <Header>
+          <Navbar />
+        </Header>
 
         {children}
 

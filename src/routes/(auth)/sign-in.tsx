@@ -3,13 +3,13 @@ import { z } from 'zod'
 
 import { SignInForm } from '@/components/auth/sign-in-form'
 
-const signInSerachSchema = z.object({
+const signInSearchSchema = z.object({
   callback: z.string().catch('/')
 })
 
 export const Route = createFileRoute('/(auth)/sign-in')({
   component: RouteComponent,
-  validateSearch: signInSerachSchema
+  validateSearch: signInSearchSchema
 })
 
 function RouteComponent() {
