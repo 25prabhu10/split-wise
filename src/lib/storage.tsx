@@ -6,7 +6,8 @@ const LocalStorage = {
    */
   set(key: string, value: unknown): void {
     try {
-      const serializedValue = typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value)
+      const serializedValue =
+        typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value)
       localStorage.setItem(key, serializedValue)
     } catch (error) {
       console.error(`Failed to set localStorage key "${key}":`, error)

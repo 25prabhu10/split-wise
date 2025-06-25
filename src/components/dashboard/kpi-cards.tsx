@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn, formatCurrency } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 
 interface KpiCardsProps {
   totalActiveGroups: number
@@ -48,7 +49,11 @@ export function KpiCards({ totalActiveGroups, totalOwedToYou, totalYouOwe }: Kpi
         </CardHeader>
         <CardContent>
           <div className="text-3xl font-bold text-accent-foreground">{totalActiveGroups}</div>
-          <p className="mt-1 text-xs text-accent-foreground">Groups you're part of</p>
+          <Link
+            to="/groups"
+            className="text-sm text-accent-foreground underline underline-offset-6 hover:underline-offset-4">
+            View all groups
+          </Link>
         </CardContent>
       </Card>
     </div>

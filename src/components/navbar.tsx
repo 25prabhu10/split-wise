@@ -8,7 +8,7 @@ import { UserMenu } from './user-menu'
 
 export function Navbar() {
   return (
-    <nav className="flex items-center justify-end gap-4">
+    <nav className="flex items-center justify-between gap-4">
       <div className="flex items-center space-x-6">
         <Link
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"

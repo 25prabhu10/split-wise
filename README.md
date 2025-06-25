@@ -5,6 +5,9 @@ A simple tool to split expenses with friends.
 ## 🛠️ Tech Stack
 
 - **Frontend**: [React 19](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
+
+  - **Forms**: [Tanstack Form](https://tanstack.com/form/latest)
+
 - **Framework**: [TanStack Start](https://tanstack.com/start/latest) - Full-stack React framework
 - **Database**: [PostgreSQL](https://www.postgresql.org/) with [Drizzle ORM](https://orm.drizzle.team/)
 - **Authentication**: [Better Auth](https://www.better-auth.com/)

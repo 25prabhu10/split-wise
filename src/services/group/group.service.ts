@@ -9,7 +9,8 @@ import {
   createGroupValidator,
   groupIdValidator,
   groupValidator,
-  updateGroupValidator
+  updateGroupValidator,
+  userGroupValidator
 } from './group.validators'
 
 export const createGroup = createServerFn({ method: 'POST' })
@@ -96,4 +97,41 @@ export const updateGroup = createServerFn({ method: 'POST' })
       .returning()
 
     return groupValidator.parse(updatedGroup)
+  })
+
+export const getUserGroups = createServerFn({ method: 'GET' })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const userGroups = await db
+      .select({
+        id: group.id,
+        name: group.name,
+        createdAt: group.createdAt,
+        createdByUserId: group.createdByUserId,
+        joinedAt: groupMember.joinedAt
+      })
+      .from(group)
+      .innerJoin(groupMember, eq(group.id, groupMember.groupId))
+      .where(eq(groupMember.userId, context.user.id))
+      .orderBy(sql`${group.createdAt} DESC`)
+
+    // Get member counts for each group
+    const groupIds = userGroups.map((g) => g.id)
+    const memberCounts = await db
+      .select({
+        groupId: groupMember.groupId,
+        count: sql<number>`COUNT(*)::int`.as('count')
+      })
+      .from(groupMember)
+      .where(sql`${groupMember.groupId} IN (${sql.join(groupIds, sql`, `)})`)
+      .groupBy(groupMember.groupId)
+
+    const memberCountMap = new Map(memberCounts.map((mc) => [mc.groupId.toString(), mc.count]))
+
+    return userGroups.map((group) =>
+      userGroupValidator.parse({
+        ...group,
+        memberCount: memberCountMap.get(group.id.toString()) ?? 0
+      })
+    )
   })

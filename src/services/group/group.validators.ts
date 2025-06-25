@@ -21,7 +21,7 @@ export const groupValidator = z.object({
 
 export type Group = z.infer<typeof groupValidator>
 
-export const GroupMemberSchema = z.object({
+export const groupMemberSchema = z.object({
   id: userSelectSchema.shape.id,
   joinedAt: groupMemberSelectSchema.shape.joinedAt,
   name: userSelectSchema.shape.name,
@@ -32,3 +32,10 @@ export const updateGroupValidator = z.object({
   id: groupSelectSchema.shape.id,
   name: groupInsertSchema.shape.name
 })
+
+export const userGroupValidator = groupValidator.extend({
+  joinedAt: groupMemberSelectSchema.shape.joinedAt,
+  memberCount: z.number()
+})
+
+export type UserGroup = z.infer<typeof userGroupValidator>
