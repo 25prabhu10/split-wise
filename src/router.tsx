@@ -1,4 +1,4 @@
-import { MutationCache, QueryClient } from '@tanstack/react-query'
+import { MutationCache, notifyManager, QueryClient } from '@tanstack/react-query'
 import { createRouter as createTanStackRouter } from '@tanstack/react-router'
 import { routerWithQueryClient } from '@tanstack/react-router-with-query'
 import { toast } from 'sonner'
@@ -10,6 +10,10 @@ import { DefaultCatchBoundary } from './components/default-error-boundary'
 import { routeTree } from './routeTree.gen'
 
 export function createRouter() {
+  if (typeof document !== 'undefined') {
+    notifyManager.setScheduler(globalThis.requestAnimationFrame)
+  }
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -38,7 +42,7 @@ export function createRouter() {
 
   return routerWithQueryClient(
     createTanStackRouter({
-      context: { queryClient, user: null },
+      context: { queryClient },
       defaultErrorComponent: DefaultCatchBoundary,
       defaultNotFoundComponent: () => <NotFound />,
       defaultPreload: 'intent',

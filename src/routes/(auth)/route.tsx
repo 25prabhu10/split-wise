@@ -1,16 +1,17 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/(auth)')({
-  beforeLoad: ({ context }) => {
-    const REDIRECT_URL = '/'
+  beforeLoad: ({ context, location }) => {
     if (context.user) {
       redirect({
         throw: true,
-        to: REDIRECT_URL
+        to: '/'
       })
     }
+
+    console.log('Redirecting to auth route:', location)
     return {
-      redirectUrl: REDIRECT_URL
+      redirectUrl: location
     }
   },
   component: RouteComponent
@@ -18,7 +19,7 @@ export const Route = createFileRoute('/(auth)')({
 
 function RouteComponent() {
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
+    <main className="flex min-h-svh flex-col items-center space-y-6 bg-background p-6 md:p-10">
       <Outlet />
     </main>
   )

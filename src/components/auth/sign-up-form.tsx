@@ -7,21 +7,6 @@ import { AccountRegistration, accountRegistrationSchema } from '@/db/schemas'
 import { useAppForm } from '@/hooks/use-form'
 import { authClient } from '@/lib/auth-client'
 
-const signUp = async (data: AccountRegistration) => {
-  const { error } = await authClient.signUp.email({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    username: data.username
-  })
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  return data
-}
-
 export function SignUpForm() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -53,7 +38,7 @@ export function SignUpForm() {
   })
 
   return (
-    <Card className="mx-auto w-full max-w-md">
+    <Card>
       <CardHeader className="space-y-1">
         <CardTitle className="text-center text-2xl font-bold">Sign Up</CardTitle>
         <CardDescription className="text-center">
@@ -138,4 +123,19 @@ export function SignUpForm() {
       </CardContent>
     </Card>
   )
+}
+
+async function signUp(data: AccountRegistration) {
+  const { error } = await authClient.signUp.email({
+    email: data.email,
+    name: data.name,
+    password: data.password,
+    username: data.username
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
 }

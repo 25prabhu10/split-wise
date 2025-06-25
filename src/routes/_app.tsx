@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_app')({
   beforeLoad: ({ context, location }) => {
@@ -11,5 +11,14 @@ export const Route = createFileRoute('/_app')({
         to: '/sign-in'
       })
     }
-  }
+  },
+  component: RouteComponent
 })
+
+function RouteComponent() {
+  return (
+    <main className="flex min-h-svh space-y-6 bg-background p-6 md:p-10">
+      <Outlet />
+    </main>
+  )
+}

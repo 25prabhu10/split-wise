@@ -8,6 +8,12 @@ import db from '@/db'
 
 const getAuthConfig = serverOnly(() =>
   betterAuth({
+    advanced: {
+      database: {
+        generateId: false // Disable ID generation by better-auth
+      }
+    },
+
     database: drizzleAdapter(db, {
       provider: 'pg'
     }),

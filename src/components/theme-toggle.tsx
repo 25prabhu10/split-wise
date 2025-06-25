@@ -47,20 +47,17 @@ export function ThemeToggle() {
 }
 
 function setTheme(theme: Theme) {
-  if (document.documentElement.classList.contains(theme)) return
-
-  document.documentElement.classList.remove('dark', 'light')
-
   if (theme === 'system') {
-    const systemPrefersDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
+    theme = globalThis.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    console.log('Setting theme to system preference:', theme)
+  }
 
-    if (systemPrefersDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.add('light')
-    }
+  if (theme === 'dark') {
+    document.documentElement.classList.remove('light')
+    document.documentElement.classList.add('dark')
   } else {
-    document.documentElement.classList.add(theme)
+    document.documentElement.classList.remove('dark')
+    document.documentElement.classList.add('light')
   }
 
   LocalStorage.set('theme', theme)

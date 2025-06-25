@@ -19,7 +19,11 @@ const signIn = async (data: AccountLogin) => {
   return response
 }
 
-export function SignInForm() {
+interface SignInFromProps {
+  callback?: string
+}
+
+export function SignInForm({ callback }: SignInFromProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
@@ -29,7 +33,7 @@ export function SignInForm() {
       toast.success(`Hey ${response.user.name}, welcome back!`)
 
       await queryClient.resetQueries()
-      await navigate({ to: '/dashboard' })
+      await navigate({ to: callback ?? '/dashboard' })
     }
   })
 
@@ -47,7 +51,7 @@ export function SignInForm() {
   })
 
   return (
-    <Card className="mx-auto w-full max-w-md">
+    <Card>
       <CardHeader className="space-y-1">
         <CardTitle className="text-center text-2xl font-bold">Sign In</CardTitle>
         <CardDescription className="text-center">

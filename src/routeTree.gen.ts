@@ -18,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as authSignUpRouteImport } from './routes/(auth)/sign-up'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
+import { Route as AppGroupsRouteRouteImport } from './routes/_app/groups/route'
+import { Route as AppGroupsIndexRouteImport } from './routes/_app/groups/index'
+import { Route as AppGroupsCreateRouteImport } from './routes/_app/groups/create'
+import { Route as AppGroupsGroupIdIndexRouteImport } from './routes/_app/groups/$groupId/index'
+import { Route as AppGroupsGroupIdEditRouteImport } from './routes/_app/groups/$groupId/edit'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth.$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -55,6 +60,31 @@ const authSignInRoute = authSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => authRouteRoute
 } as any)
+const AppGroupsRouteRoute = AppGroupsRouteRouteImport.update({
+  id: '/groups',
+  path: '/groups',
+  getParentRoute: () => AppRoute
+} as any)
+const AppGroupsIndexRoute = AppGroupsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppGroupsRouteRoute
+} as any)
+const AppGroupsCreateRoute = AppGroupsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppGroupsRouteRoute
+} as any)
+const AppGroupsGroupIdIndexRoute = AppGroupsGroupIdIndexRouteImport.update({
+  id: '/$groupId/',
+  path: '/$groupId/',
+  getParentRoute: () => AppGroupsRouteRoute
+} as any)
+const AppGroupsGroupIdEditRoute = AppGroupsGroupIdEditRouteImport.update({
+  id: '/$groupId/edit',
+  path: '/$groupId/edit',
+  getParentRoute: () => AppGroupsRouteRoute
+} as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -64,9 +94,14 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof authRouteRouteWithChildren
   '/user': typeof UserRouteRoute
+  '/groups': typeof AppGroupsRouteRouteWithChildren
   '/sign-in': typeof authSignInRoute
   '/sign-up': typeof authSignUpRoute
   '/dashboard': typeof AppDashboardRoute
+  '/groups/create': typeof AppGroupsCreateRoute
+  '/groups/': typeof AppGroupsIndexRoute
+  '/groups/$groupId/edit': typeof AppGroupsGroupIdEditRoute
+  '/groups/$groupId': typeof AppGroupsGroupIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof authRouteRouteWithChildren
@@ -74,6 +109,10 @@ export interface FileRoutesByTo {
   '/sign-in': typeof authSignInRoute
   '/sign-up': typeof authSignUpRoute
   '/dashboard': typeof AppDashboardRoute
+  '/groups/create': typeof AppGroupsCreateRoute
+  '/groups': typeof AppGroupsIndexRoute
+  '/groups/$groupId/edit': typeof AppGroupsGroupIdEditRoute
+  '/groups/$groupId': typeof AppGroupsGroupIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -81,24 +120,53 @@ export interface FileRoutesById {
   '/(auth)': typeof authRouteRouteWithChildren
   '/user': typeof UserRouteRoute
   '/_app': typeof AppRouteWithChildren
+  '/_app/groups': typeof AppGroupsRouteRouteWithChildren
   '/(auth)/sign-in': typeof authSignInRoute
   '/(auth)/sign-up': typeof authSignUpRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/groups/create': typeof AppGroupsCreateRoute
+  '/_app/groups/': typeof AppGroupsIndexRoute
+  '/_app/groups/$groupId/edit': typeof AppGroupsGroupIdEditRoute
+  '/_app/groups/$groupId/': typeof AppGroupsGroupIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/user' | '/sign-in' | '/sign-up' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/user'
+    | '/groups'
+    | '/sign-in'
+    | '/sign-up'
+    | '/dashboard'
+    | '/groups/create'
+    | '/groups/'
+    | '/groups/$groupId/edit'
+    | '/groups/$groupId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/user' | '/sign-in' | '/sign-up' | '/dashboard'
+  to:
+    | '/'
+    | '/user'
+    | '/sign-in'
+    | '/sign-up'
+    | '/dashboard'
+    | '/groups/create'
+    | '/groups'
+    | '/groups/$groupId/edit'
+    | '/groups/$groupId'
   id:
     | '__root__'
     | '/'
     | '/(auth)'
     | '/user'
     | '/_app'
+    | '/_app/groups'
     | '/(auth)/sign-in'
     | '/(auth)/sign-up'
     | '/_app/dashboard'
+    | '/_app/groups/create'
+    | '/_app/groups/'
+    | '/_app/groups/$groupId/edit'
+    | '/_app/groups/$groupId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,6 +248,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignInRouteImport
       parentRoute: typeof authRouteRoute
     }
+    '/_app/groups': {
+      id: '/_app/groups'
+      path: '/groups'
+      fullPath: '/groups'
+      preLoaderRoute: typeof AppGroupsRouteRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/groups/': {
+      id: '/_app/groups/'
+      path: '/'
+      fullPath: '/groups/'
+      preLoaderRoute: typeof AppGroupsIndexRouteImport
+      parentRoute: typeof AppGroupsRouteRoute
+    }
+    '/_app/groups/create': {
+      id: '/_app/groups/create'
+      path: '/create'
+      fullPath: '/groups/create'
+      preLoaderRoute: typeof AppGroupsCreateRouteImport
+      parentRoute: typeof AppGroupsRouteRoute
+    }
+    '/_app/groups/$groupId/': {
+      id: '/_app/groups/$groupId/'
+      path: '/$groupId'
+      fullPath: '/groups/$groupId'
+      preLoaderRoute: typeof AppGroupsGroupIdIndexRouteImport
+      parentRoute: typeof AppGroupsRouteRoute
+    }
+    '/_app/groups/$groupId/edit': {
+      id: '/_app/groups/$groupId/edit'
+      path: '/$groupId/edit'
+      fullPath: '/groups/$groupId/edit'
+      preLoaderRoute: typeof AppGroupsGroupIdEditRouteImport
+      parentRoute: typeof AppGroupsRouteRoute
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -206,11 +309,31 @@ const authRouteRouteChildren: authRouteRouteChildren = {
 
 const authRouteRouteWithChildren = authRouteRoute._addFileChildren(authRouteRouteChildren)
 
+interface AppGroupsRouteRouteChildren {
+  AppGroupsCreateRoute: typeof AppGroupsCreateRoute
+  AppGroupsIndexRoute: typeof AppGroupsIndexRoute
+  AppGroupsGroupIdEditRoute: typeof AppGroupsGroupIdEditRoute
+  AppGroupsGroupIdIndexRoute: typeof AppGroupsGroupIdIndexRoute
+}
+
+const AppGroupsRouteRouteChildren: AppGroupsRouteRouteChildren = {
+  AppGroupsCreateRoute: AppGroupsCreateRoute,
+  AppGroupsIndexRoute: AppGroupsIndexRoute,
+  AppGroupsGroupIdEditRoute: AppGroupsGroupIdEditRoute,
+  AppGroupsGroupIdIndexRoute: AppGroupsGroupIdIndexRoute
+}
+
+const AppGroupsRouteRouteWithChildren = AppGroupsRouteRoute._addFileChildren(
+  AppGroupsRouteRouteChildren
+)
+
 interface AppRouteChildren {
+  AppGroupsRouteRoute: typeof AppGroupsRouteRouteWithChildren
   AppDashboardRoute: typeof AppDashboardRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppGroupsRouteRoute: AppGroupsRouteRouteWithChildren,
   AppDashboardRoute: AppDashboardRoute
 }
 

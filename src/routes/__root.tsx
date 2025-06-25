@@ -10,6 +10,7 @@ import {
   ScriptOnce,
   Scripts
 } from '@tanstack/react-router'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { DefaultCatchBoundary } from '@/components/default-error-boundary'
 import { Header } from '@/components/header'
@@ -17,17 +18,14 @@ import { Navbar } from '@/components/navbar'
 import { NotFound } from '@/components/not-found'
 import { Toaster } from '@/components/ui/sonner'
 import { seo } from '@/lib/seo'
-import { authQueries } from '@/services/auth.queries'
-import { getUser } from '@/services/auth.service'
+import { authQueries } from '@/services/auth/auth.queries'
 import appCss from '@/styles/app.css?url'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
-  user: Awaited<ReturnType<typeof getUser>>
 }>()({
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.fetchQuery(authQueries.getUser())
-    // we're using react-query for caching, see router.tsx
     return { user }
   },
   component: RootComponent,
@@ -79,7 +77,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body className="will-change antialiased transition-colors duration-300 ease-in-out">
+      <body className="antialiased">
         <ScriptOnce>
           {`document.documentElement.classList.toggle(
             'dark',
@@ -94,6 +92,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         {children}
 
         <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} />
         <Scripts />
       </body>
     </html>

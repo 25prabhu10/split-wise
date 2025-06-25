@@ -2,11 +2,12 @@ import { queryOptions } from '@tanstack/react-query'
 
 import { getUser } from './auth.service'
 
+export const labels = ['auth']
+
 export const authQueries = {
-  all: ['auth'],
   getUser: () =>
     queryOptions({
       queryFn: ({ signal }) => getUser({ signal }),
-      queryKey: [...authQueries.all, 'getUser']
+      queryKey: [...labels, 'user']
     })
 }

@@ -8,11 +8,9 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const { user } = Route.useRouteContext()
-  const isAuthenticated = !!user
-  const userName = user?.name
   return (
     <div className="min-h-svh bg-background text-foreground">
-      <LandingContent isAuthenticated={isAuthenticated} userName={userName} />
+      <LandingContent name={user?.username} />
     </div>
   )
 }

@@ -3,11 +3,6 @@ import { createFileRoute, Link, redirect } from '@tanstack/react-router'
 import { SignUpForm } from '@/components/auth/sign-up-form'
 
 export const Route = createFileRoute('/(auth)/sign-up')({
-  beforeLoad: ({ context }) => {
-    if (context.user) {
-      redirect({ throw: true, to: '/' })
-    }
-  },
   component: RouteComponent
 })
 
